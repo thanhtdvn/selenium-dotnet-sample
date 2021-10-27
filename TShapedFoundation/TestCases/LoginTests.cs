@@ -10,7 +10,7 @@ namespace TShapedFoundation.TestCases
     class LoginTests : WebDriverManagers
     {
         IWebDriver driver;
-        HomePage homePage;
+        BookStorePage bookStorePage;
         LoginPage loginPage;
         
 
@@ -18,7 +18,7 @@ namespace TShapedFoundation.TestCases
         public void Setup()
         {
             driver = CreateBrowserDriver("chrome");
-            driver.Navigate().GoToUrl(Common.Constant.APP_URL);
+            driver.Navigate().GoToUrl(Common.Constant.BOOK_STORE_PAGE_URL);
         }
 
         [TearDown]
@@ -33,12 +33,12 @@ namespace TShapedFoundation.TestCases
             String validUsername = Common.Constant.USERNAME;
             String validPassword = Common.Constant.PASSWORD;
 
-            homePage = new HomePage(driver);
-            homePage.CloseAdsPopup();
-            loginPage = homePage.GoToLoginPage();
-            homePage = loginPage.LoginWithValidAccount(validUsername, validPassword);         
-          
-            String headerText = homePage.GetUsernameLabelValue();
+            bookStorePage = new BookStorePage(driver);
+            bookStorePage.CloseAdsPopup();
+            loginPage = bookStorePage.GoToLoginPage();
+            bookStorePage = loginPage.LoginWithValidAccount(validUsername, validPassword);
+
+            String headerText = bookStorePage.GetUsernameLabelValue();
             Assert.AreEqual(headerText, validUsername, "Username is not displayed as expected.");
         }
 
@@ -48,9 +48,9 @@ namespace TShapedFoundation.TestCases
             String invalidUsername = "abc";
             String invalidPassword = "123456";
 
-            homePage = new HomePage(driver);
-            homePage.CloseAdsPopup();
-            loginPage = homePage.GoToLoginPage();
+            bookStorePage = new BookStorePage(driver);
+            bookStorePage.CloseAdsPopup();
+            loginPage = bookStorePage.GoToLoginPage();
             loginPage.LoginWithValidAccount(invalidUsername, invalidPassword);
 
             String invalidLoginMessage = loginPage.GetInvalidLoginMessage(); 

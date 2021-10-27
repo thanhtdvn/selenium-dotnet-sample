@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
@@ -6,13 +7,13 @@ using System.Threading;
 
 namespace TShapedFoundation.Common
 {
-    class BasePage
+    public abstract class BasePage
     {
         public IWebDriver driver;
         private IWebElement element;
         IList<IWebElement> elements;
         private WebDriverWait explicitWait;
-        private readonly long longtimeout = 30;
+        private readonly long longtimeout = 20;
 
         public BasePage(IWebDriver driver)
         {
@@ -37,6 +38,22 @@ namespace TShapedFoundation.Common
         public void ClickToElement(By byLocator)
         {
             this.FindElement(byLocator).Click();
+        }
+
+        public void MoveToElementAndClick(By byLocator)
+        {
+            var el = this.FindElement(byLocator);
+            Actions action = new Actions(driver);
+            action.MoveToElement(el).Click();
+            action.Perform();
+        }
+
+        public void ScrollToElementAndClick(By byLocator)
+        {
+            var el = this.FindElement(byLocator);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("arguments[0].scrollIntoView()", el);
+            el.Click();
         }
 
         public void SendKeyToElement(By byLocator, string value)
@@ -94,6 +111,27 @@ namespace TShapedFoundation.Common
             explicitWait = new WebDriverWait(driver, TimeSpan.FromSeconds(longtimeout));
             explicitWait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(byLocator));
 
+        }
+
+        public void WaitForAlertIsDisplay()
+        {
+            explicitWait = new WebDriverWait(driver, TimeSpan.FromSeconds(longtimeout));
+            explicitWait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.AlertIsPresent());
+        }
+
+        public void DismissAlert()
+        {
+            driver.SwitchTo().Alert().Dismiss();
+        }
+
+        public void AcceptAlert()
+        {
+            driver.SwitchTo().Alert().Accept();
+        }
+
+        public string GetAlertText()
+        {
+            return driver.SwitchTo().Alert().Text;
         }
     }
         

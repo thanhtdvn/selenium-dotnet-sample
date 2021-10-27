@@ -4,7 +4,7 @@ using TShapedFoundation.Common;
 
 namespace TShapedFoundation.PageObjects
 {
-    class LoginPage : BasePage
+    public class LoginPage : BaseDemoQAPage
     {
 
         private By usernameTextBox = By.Id("userName");
@@ -16,12 +16,12 @@ namespace TShapedFoundation.PageObjects
         {
         }
 
-        public HomePage LoginWithValidAccount(String username, String password)
+        public BookStorePage LoginWithValidAccount(String username, String password)
         {
             SendKeyToElement(usernameTextBox, username);
             SendKeyToElement(passwordTextBox, password);
             ClickToElement(loginButton);
-            return new HomePage(driver);
+            return new BookStorePage(driver);
         }
 
         public void LoginWithInvalidAccount(String username, String password)
