@@ -1,8 +1,7 @@
 ﻿using OpenQA.Selenium;
 using System;
-using TShapedFoundation.Common;
 
-namespace TShapedFoundation.PageObjects
+namespace TShapedFoundation.PageObjects.DemoQA
 {
     public class ProfilePage : BaseDemoQAPage
     {
@@ -18,38 +17,39 @@ namespace TShapedFoundation.PageObjects
 
         public void SearchBooks(string keyword)
         {
-            this.SendKeyToElement(searchBoxTextBox, keyword);
+            SendKeyToElement(searchBoxTextBox, keyword);
         }
 
         public void DeleteAllBooks()
         {
-            this.WaitForElementClickable(deleteAllBooksButton);
-            this.ScrollToElementAndClick(deleteAllBooksButton);
-            this.WaitForElementVisible(modalDialogOKButton);
-            this.ClickToElement(modalDialogOKButton);
-            this.WaitForAlertIsDisplay();
-            this.DismissAlert();
+            WaitForElementClickable(deleteAllBooksButton);
+            ScrollToElementAndClick(deleteAllBooksButton);
+            WaitForElementVisible(modalDialogOKButton);
+            ClickToElement(modalDialogOKButton);
+            WaitForAlertIsDisplay();
+            DismissAlert();
         }
 
         public void DeleteBookByName(string strBookName, out string strResultMessage)
         {
             By deleteBookIcon = deleteBookIconByBookName(strBookName);
-            this.WaitForElementClickable(deleteBookIcon);
-            this.ScrollToElementAndClick(deleteBookIcon);
-            this.WaitForElementVisible(modalDialogOKButton);
-            this.ClickToElement(modalDialogOKButton);
-            this.WaitForAlertIsDisplay();
-            strResultMessage = this.GetAlertText();
-            this.AcceptAlert();
+            WaitForElementClickable(deleteBookIcon);
+            ScrollToElementAndClick(deleteBookIcon);
+            WaitForElementVisible(modalDialogOKButton);
+            ClickToElement(modalDialogOKButton);
+            WaitForAlertIsDisplay();
+            strResultMessage = GetAlertText();
+            AcceptAlert();
         }
 
         public bool CheckBookIsShownOnPage(string strBookName)
         {
             try
             {
-                this.WaitForElementVisible(bookTitleLinkByBookName(strBookName));
+                WaitForElementVisible(bookTitleLinkByBookName(strBookName));
                 return true;
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 return false;

@@ -1,8 +1,6 @@
 ﻿using OpenQA.Selenium;
-using System;
-using TShapedFoundation.Common;
 
-namespace TShapedFoundation.PageObjects
+namespace TShapedFoundation.PageObjects.DemoQA
 {
     public class LoginPage : BaseDemoQAPage
     {
@@ -16,7 +14,7 @@ namespace TShapedFoundation.PageObjects
         {
         }
 
-        public BookStorePage LoginWithValidAccount(String username, String password)
+        public BookStorePage LoginWithValidAccount(string username, string password)
         {
             SendKeyToElement(usernameTextBox, username);
             SendKeyToElement(passwordTextBox, password);
@@ -24,15 +22,15 @@ namespace TShapedFoundation.PageObjects
             return new BookStorePage(driver);
         }
 
-        public void LoginWithInvalidAccount(String username, String password)
+        public void LoginWithInvalidAccount(string username, string password)
         {
             SendKeyToElement(usernameTextBox, username);
             SendKeyToElement(passwordTextBox, password);
             ClickToElement(loginButton);
         }
-         public String GetInvalidLoginMessage()
+        public string GetInvalidLoginMessage()
         {
-            WaitForElementVisible(invalidLoginMessage); 
+            WaitForElementVisible(invalidLoginMessage);
             return GetElementText(invalidLoginMessage);
         }
     }

@@ -11,7 +11,6 @@ namespace TShapedFoundation.Common
     {
         public IWebDriver driver;
         private IWebElement element;
-        IList<IWebElement> elements;
         private WebDriverWait explicitWait;
         private readonly long longtimeout = 20;
 
@@ -40,12 +39,32 @@ namespace TShapedFoundation.Common
             this.FindElement(byLocator).Click();
         }
 
+        public void MoveToElement(By byLocator)
+        {
+            var el = this.FindElement(byLocator);
+            Actions action = new Actions(driver);
+            action.MoveToElement(el);
+            action.Perform();
+        }
+
         public void MoveToElementAndClick(By byLocator)
         {
             var el = this.FindElement(byLocator);
             Actions action = new Actions(driver);
             action.MoveToElement(el).Click();
             action.Perform();
+        }
+
+        public void SelectByValue(By bySelectLocator, string value)
+        {
+            var select = new SelectElement(driver.FindElement(bySelectLocator));
+            select.SelectByValue(value);
+        }
+
+        public void SelectByText(By bySelectLocator, string text)
+        {
+            var select = new SelectElement(driver.FindElement(bySelectLocator));
+            select.SelectByText(text);
         }
 
         public void ScrollToElementAndClick(By byLocator)

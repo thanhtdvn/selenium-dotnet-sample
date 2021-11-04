@@ -1,4 +1,4 @@
-﻿namespace TShapedFoundation.Models
+﻿namespace TShapedFoundation.PageObjects.DemoQA.Models
 {
     public class Book
     {

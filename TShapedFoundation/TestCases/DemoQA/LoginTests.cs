@@ -1,24 +1,25 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
-using System;
 using TShapedFoundation.Common;
-using TShapedFoundation.PageObjects;
+using TShapedFoundation.PageObjects.DemoQA;
 
-namespace TShapedFoundation.TestCases
+namespace TShapedFoundation.TestCases.DemoQA
 {
     [TestFixture]
     class LoginTests : WebDriverManagers
     {
         IWebDriver driver;
+        PageManager pageManager;
         BookStorePage bookStorePage;
         LoginPage loginPage;
-        
+
 
         [SetUp]
         public void Setup()
         {
-            driver = CreateBrowserDriver("chrome");
-            driver.Navigate().GoToUrl(Common.Constant.BOOK_STORE_PAGE_URL);
+            driver = CreateBrowserDriver(Browser.Chrome);
+            pageManager = new PageManager(driver);
+            pageManager.NavigateToBookStorePage();
         }
 
         [TearDown]
@@ -30,33 +31,33 @@ namespace TShapedFoundation.TestCases
         [Test]
         public void LoginWithValidUser()
         {
-            String validUsername = Common.Constant.USERNAME;
-            String validPassword = Common.Constant.PASSWORD;
+            string validUsername = pageManager.pageSettings.Username;
+            string validPassword = pageManager.pageSettings.Password;
 
             bookStorePage = new BookStorePage(driver);
             bookStorePage.CloseAdsPopup();
             loginPage = bookStorePage.GoToLoginPage();
             bookStorePage = loginPage.LoginWithValidAccount(validUsername, validPassword);
 
-            String headerText = bookStorePage.GetUsernameLabelValue();
+            string headerText = bookStorePage.GetUsernameLabelValue();
             Assert.AreEqual(headerText, validUsername, "Username is not displayed as expected.");
         }
 
         [Test]
         public void LoginWithInvalidUser()
         {
-            String invalidUsername = "abc";
-            String invalidPassword = "123456";
+            string invalidUsername = "abc";
+            string invalidPassword = "123456";
 
             bookStorePage = new BookStorePage(driver);
             bookStorePage.CloseAdsPopup();
             loginPage = bookStorePage.GoToLoginPage();
             loginPage.LoginWithValidAccount(invalidUsername, invalidPassword);
 
-            String invalidLoginMessage = loginPage.GetInvalidLoginMessage(); 
+            string invalidLoginMessage = loginPage.GetInvalidLoginMessage();
             Assert.AreEqual(invalidLoginMessage, "Invalid username or password!", "Warning message is not displayed as expected.");
         }
 
-        
+
     }
 }

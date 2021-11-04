@@ -1,7 +1,7 @@
 ﻿using OpenQA.Selenium;
-using TShapedFoundation.Models;
+using TShapedFoundation.PageObjects.DemoQA.Models;
 
-namespace TShapedFoundation.PageObjects
+namespace TShapedFoundation.PageObjects.DemoQA
 {
     public class BookDetailPage : BaseDemoQAPage
     {
@@ -15,16 +15,16 @@ namespace TShapedFoundation.PageObjects
 
         public void AddBookToCollection()
         {
-            this.WaitForElementClickable(addToYourCollectionButton);
-            this.ScrollToElementAndClick(addToYourCollectionButton);
+            WaitForElementClickable(addToYourCollectionButton);
+            ScrollToElementAndClick(addToYourCollectionButton);
         }
 
         public Book GetBookInfo()
         {
-            this.WaitForElementVisible(bookInfoISBNLabel);
+            WaitForElementVisible(bookInfoISBNLabel);
             Book book = new Book();
-            book.Title = this.FindElement(bookInfoTitleLabel).Text;
-            book.ISBN = this.FindElement(bookInfoISBNLabel).Text;
+            book.Title = FindElement(bookInfoTitleLabel).Text;
+            book.ISBN = FindElement(bookInfoISBNLabel).Text;
 
             return book;
         }

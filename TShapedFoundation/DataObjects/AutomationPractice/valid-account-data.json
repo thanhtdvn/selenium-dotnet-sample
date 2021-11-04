@@ -1,0 +1,17 @@
+﻿{
+    "email": "UNIQUE",
+    "firstName": "Auto",
+    "lastName": "Auto",
+    "password": "123456",
+    "birthdayDay": "2",
+    "birthdayMonth": "5",
+    "birthdayYear": "1980",
+    "address": "810 Alexander Avenue",
+    "city": "San Rafael",
+    "state": "California",
+    "postCode": "94901",
+    "country": "United States",
+    "mobile": "415-686-2644",
+    "addressAlias": "Auto address"
+
+}

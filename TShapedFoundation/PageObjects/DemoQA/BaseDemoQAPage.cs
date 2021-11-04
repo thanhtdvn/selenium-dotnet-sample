@@ -2,7 +2,7 @@
 using System;
 using TShapedFoundation.Common;
 
-namespace TShapedFoundation.PageObjects
+namespace TShapedFoundation.PageObjects.DemoQA
 {
     public abstract class BaseDemoQAPage : BasePage
     {
@@ -17,7 +17,8 @@ namespace TShapedFoundation.PageObjects
             try
             {
                 ClickToElement(closeAdsArrowButton);
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine("CloseAdsPopup Error!", ex);
             }
